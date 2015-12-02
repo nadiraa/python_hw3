@@ -1,0 +1,32 @@
+def AllowedSymbol(symbol):
+    return symbol.isalpha() or symbol.isdigit() or symbol == '.' or symbol == ' '
+
+def CleanLine(text):
+    text = text.lower()
+    text = text.replace('.', ' .')
+    for index, symbol in enumerate(text):
+        if not (AllowedSymbol(symbol)):
+            text = text[:index] + ' ' + text[index + 1:]
+    return text
+
+def AddSpaces(words):
+    words_with_spaces = []
+    for index, word in enumerate(words):
+        words[index] = word + ' '
+    return words
+
+def GetData(folder):
+    text = ''
+    for author in os.listdir('./' + folder):
+        if author[0] != '.':
+            for book in os.listdir('./{}/{}'.format(folder, author)):
+                with open('./{}/{}/{}'.format(folder, author, book), 'r') as f:
+                    line = f.read()
+                    text += CleanLine(line)
+    return AddSpaces(text.split())
+text = 'werewqdf . '
+text = text[:-3] + '. '
+print text
+print AddSpaces(CleanLine('I am 18 y;s OOold/. I Study at schol.').split())
+print 'myword'.title()
+
